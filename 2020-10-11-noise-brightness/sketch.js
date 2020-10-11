@@ -1,7 +1,13 @@
 
+let render_button;
+
+let noise_seed_slider;
+let xoff_slider;
+let yoff_slider;
+
 function noiseBG ()
 {
-    noiseSeed ( random ( 100000 ) );
+    noiseSeed ( noise_seed_slider.value () );
     loadPixels ();
 
     let xoff = 0.0;
@@ -21,26 +27,46 @@ function noiseBG ()
             pixels [ idx + 2 ] = bright;
             pixels [ idx + 3 ] = 255;
 
-            yoff += 0.01;
+            yoff += yoff_slider.value ();
         }
 
-        xoff += 0.01;
+        xoff += xoff_slider.value ();
     }
 
     updatePixels ();
 }
 
-let renderButton;
 
 function setup() 
 {
     createCanvas(400, 400);
 
+    let ui_y = height + 26;
+
+    createP ( 'seed' );
+    createP ( 'xoff' );
+    createP ( 'yoff' );
+
+    noise_seed_slider = createSlider ( 0, 10000, random ( 10000 ), 1 );
+    noise_seed_slider.position ( 80, ui_y );
+
+    ui_y += 40;
+
+    xoff_slider = createSlider ( 0, 0.1, 0.01, 0.01 );
+    xoff_slider.position ( 80, ui_y );
+
+    ui_y += 40;
+
+    yoff_slider = createSlider ( 0, 0.1, 0.01, 0.01 );
+    yoff_slider.position ( 80, ui_y );
+
+    ui_y += 40;
+
+    render_button = createButton ( 'render' );
+    render_button.mousePressed ( noiseBG );
+    render_button.position ( 10, ui_y );
+
     noiseBG ();
-
-    renderButton = createButton ( 'render' );
-    renderButton.mousePressed ( noiseBG );
-
 }
 
 function draw() 
