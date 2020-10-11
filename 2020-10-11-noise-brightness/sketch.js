@@ -4,6 +4,9 @@ let render_button;
 let noise_seed_slider;
 let xoff_slider;
 let yoff_slider;
+let zoff_slider;
+
+let noise_z = 0.01;
 
 function noiseBG ()
 {
@@ -20,7 +23,7 @@ function noiseBG ()
         {
             let idx = ( i * 4 ) + ( j * width * 4 );
 
-            let bright = map ( noise ( xoff, yoff ), 0, 1, 0, 255 );
+            let bright = map ( noise ( xoff, yoff, noise_z ), 0, 1, 0, 255 );
 
             pixels [ idx + 0 ] = bright;
             pixels [ idx + 1 ] = bright;
@@ -46,6 +49,7 @@ function setup()
     createP ( 'seed' );
     createP ( 'xoff' );
     createP ( 'yoff' );
+    createP ( 'zoff' );
 
     noise_seed_slider = createSlider ( 0, 10000, random ( 10000 ), 1 );
     noise_seed_slider.position ( 80, ui_y );
@@ -62,13 +66,18 @@ function setup()
 
     ui_y += 40;
 
+    zoff_slider = createSlider ( 0, 0.5, 0.01, 0.01 );
+    zoff_slider.position ( 80, ui_y );
+
+    ui_y += 40;
     render_button = createButton ( 'render' );
     render_button.mousePressed ( noiseBG );
     render_button.position ( 10, ui_y );
 
-    noiseBG ();
 }
 
 function draw() 
 {
+    noiseBG ();
+    noise_z += zoff_slider.value ();
 }
