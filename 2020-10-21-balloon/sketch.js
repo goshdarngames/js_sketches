@@ -1,14 +1,22 @@
 let minLoad = 1;
 let maxLoad = 20;
 
-let maxInflation = 3;
+let maxInflation = maxLoad * 3;
+
+let maxWind = 1.5;
 
 let gravity = 1;
+
+let balloons = [];
+
+let wind = 0.0;
+let noise_x = 0.0;
 
 class Balloon
 {
     constructor ( pos, load, inflation )
     {
+
         this.load = load;
 
         this.pos = pos;
@@ -18,7 +26,7 @@ class Balloon
         this.velocity = createVector ( 0, 0 );
     }
 
-    update ( wind )
+    update ()
     {
         let acceleration = createVector ( 0, 0 );
 
@@ -29,7 +37,10 @@ class Balloon
         acceleration.add ( createVector ( 0, gravity ) );
 
         if ( this.pos.y < height - 10 )
-            acceleration.add ( createVector ( wind, 0 ) );
+        {
+            let w = wind * ( this.inflation / maxInflation );
+            acceleration.add ( createVector ( w, 0 ) );
+        }
 
         this.velocity.add ( acceleration );
 
@@ -46,8 +57,7 @@ class Balloon
 
         this.pos.x = ( width + this.pos.x ) % width;
 
-        this.inflation = Math.min ( this.inflation + 0.1, 
-            maxLoad * maxInflation );
+        this.inflation = Math.min ( this.inflation + 0.1, maxInflation );
     }
 
     display ()
@@ -57,22 +67,19 @@ class Balloon
 
         let b_rad = this.inflation;
 
-        let b_x = this.pos.x;
+        let b_windx = map ( wind, -maxWind, maxWind, -b_rad, b_rad );
+        let b_x = this.pos.x + b_windx;
         let b_y = this.pos.y - b_rad - this.load;
 
         circle ( b_x, b_y, b_rad * 2 );
     }
 }
 
-let balloons = [];
-
-let wind;
-
 function setup() 
 {
     createCanvas(800, 800);
 
-    for ( let i=0; i < 10; i++ )
+    for ( let i=0; i < 20; i++ )
     {
         let load = random ( minLoad, maxLoad );
 
@@ -89,11 +96,13 @@ function draw()
 {
     background ( '#884477' );
 
-    wind = random ( -1, 1 );
+    wind = map ( noise ( noise_x ), 0, 1, -maxWind, maxWind );
+
+    noise_x += 0.01;
 
     balloons.forEach ( ( b ) =>
     {
-        b.update ( wind );
+        b.update ();
         b.display ();
     });
 }
