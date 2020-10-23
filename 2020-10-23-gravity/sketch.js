@@ -74,6 +74,9 @@ function draw()
 
 function mousePressed ()
 {
+    if ( mouseY > height || mouseX > width )
+        return;
+
     if ( clickAction == ClickAction.ADD_ATTRACTOR )
     {
         attractors.push ( 
