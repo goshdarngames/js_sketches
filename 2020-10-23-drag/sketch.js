@@ -1,5 +1,4 @@
 let balls = [];
-let gravity;
 let restartButton;
 
 class Ball
@@ -27,6 +26,11 @@ class Ball
 
     display ()
     {
+        stroke ( 51 );
+        strokeWeight ( 4 );
+
+        fill ( 255 );
+
         circle ( this.pos.x, this.pos.y, this.size );
     }
 
@@ -79,18 +83,27 @@ class Ball
     }
 }
 
-function friction ( b, c )
+function gravity ( b )
+{
+    return createVector ( 0, 0.1 );
+}
+
+function drag ( b )
 {
     let f = b.velocity.copy ();
 
     f.normalize ();
 
     f.mult ( -1 );
+    
+    let speed = b.velocity.magSq ();
 
-    //basic normal value for friction
-    let normal = 1;
+    let c = 0.1;
 
-    let fMag = c*normal;
+    //surface area
+    let a = b.size * b.size * 0.0005;
+
+    let fMag = c*speed*a;
 
     f.mult ( fMag );
 
@@ -103,8 +116,7 @@ function startSim ()
 
     for ( let i=0; i < 100; i++ )
     {
-        let b_pos = createVector ( width/2 + random ( -200, 200 ), 
-                                   height/2 + random ( -200, 200 ) );
+        let b_pos = createVector ( random ( 0, width ), 80 );
         balls.push ( new Ball ( b_pos, random ( 5, 50 ) ) );
     }
 }
@@ -112,13 +124,6 @@ function startSim ()
 function setup() 
 {
     createCanvas(800, 800);
-
-    gravity = createVector ( 0, 1 );
-
-    let startSim = () =>
-    {
-
-    };
 
     restartButton = createButton ( 'Restart' );
     restartButton.position ( 20, height + 40 );
@@ -132,11 +137,16 @@ function draw()
 
     balls.forEach ( ( b ) => 
     {
-        //air friction
-        //b.addForce ( drag ( b ) );
-        b.addForce ( gravity );
+        if ( b.pos.y > height/2 )
+            b.addForce ( drag ( b ) );
+
+        b.addForce ( gravity ( b ) );
 
         b.update ();
         b.display ();
     });
+
+    noStroke ();
+    fill ( 0, 180, 0, 100 );
+    rect ( 0, height/2, width, height/2 );
 }
