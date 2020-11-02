@@ -51,7 +51,7 @@ class GravitySystem extends ECSY.System
 
         let f = p5.Vector.sub ( d2.pos, d1.pos );
 
-        let dist = constrain ( f.mag (), 5, 40 );
+        let dist = constrain ( f.mag (), 5, 100 );
 
         f.normalize ();
 
@@ -97,10 +97,12 @@ class MovementSystem extends ECSY.System
             let acc = entity.getComponent ( Acceleration ).a;
 
             v.add ( acc );
+            v.limit ( 40 );
 
             acc.set ( 0 );
 
             pos.add ( v );
+
         });
     }
 }
@@ -122,8 +124,9 @@ class DisplaySystem extends ECSY.System
         this.queries.circles.results.forEach(entity => {
 
             let pos = entity.getComponent ( Position ).p;
+            let mass = entity.getComponent ( Mass ).m;
 
-            circle ( pos.x, pos.y, 10 );
+            circle ( pos.x, pos.y, mass );
         });
     }
 }
@@ -132,6 +135,6 @@ DisplaySystem.queries =
 {
     circles : 
     {
-        components : [ Position, DisplayCircle ]
+        components : [ Position, DisplayCircle, Mass ]
     }
 };

@@ -16,7 +16,7 @@ function setup()
         .registerSystem ( GravitySystem )
         .registerSystem ( DisplaySystem );
 
-    for ( let i = 0; i < 10; i++ )
+    for ( let i = 0; i < 50; i++ )
     {
         let pos = 
         {
@@ -35,7 +35,7 @@ function setup()
 
         let mass = 
         {
-            m : 20,
+            m : random ( 5, 50 ),
         }
 
         world
