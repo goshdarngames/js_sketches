@@ -1,6 +1,9 @@
 let amp;
 
-let period = 60 * 6;
+let len = 6;
+let fr = 60;
+
+let period = len * fr;
 
 let n_slider;
 
@@ -11,11 +14,12 @@ let colors = [ '#ff0', '#0ff', '#f0f' ];
 let f = 6;
 let f1_slider;
 
-let ui_y;
+let ui_y, ui_x;
 let ui = []
 
 let f2_slider;
 let bg_slider;
+let gif_button;
 
 function setup() 
 {
@@ -23,7 +27,8 @@ function setup()
 
     amp = width/2;
 
-    ui_y = height + 26;
+    ui_x = width + 80;
+    ui_y = 26;
 
     new_slider (1, 300, 12, 1);
     new_slider (1,60,10,1);
@@ -34,17 +39,22 @@ function setup()
     f2_slider = ui [ 2 ];
     bg_slider = ui [ 3 ];
     
+    frameRate(fr);
+
+    gif_button = createButton ( 'make gif' );
+    gif_button.position ( ui_x, ui_y );
+    gif_button.mousePressed ( () => createLoop({duration:len, gif:true }) );
 }
 
 function new_slider ( min, max, def, step )
 {
     let s = createSlider ( min, max, def, step );
-    s.position ( 80, ui_y );
+    s.position ( ui_x, ui_y );
     s.size ( 600, AUTO );
 
     ui.push ( s );
 
-    ui_y += 40;
+    ui_y += 100;
 }
 
 function draw() 
