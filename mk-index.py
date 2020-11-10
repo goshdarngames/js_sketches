@@ -11,6 +11,7 @@ def mk_sketch_list_item ( sketch_name ):
     item += "<a href='"
     item += os.path.join ( "sketches", sketch_name, "index.html" )
     item += "'>"+sketch_name+"</a>"
+    item += "\n"
     item += "</li>"
 
     return item
