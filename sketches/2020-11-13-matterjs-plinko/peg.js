@@ -21,6 +21,6 @@ class Peg
 
         let p = this.body.position;
 
-        circle ( p.x, p.y, this.r );
+        circle ( p.x, p.y, this.r * 2 );
     }
 }

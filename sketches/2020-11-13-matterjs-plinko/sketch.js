@@ -13,8 +13,15 @@ let balls = [];
 let peg_r = 5;
 let pegs = [];
 
-let cols = 5;
-let rows = 5;
+let cols = 17;
+let rows = 14;
+
+let bounds = [];
+let b_width = 10;
+
+let bucket_count = 8;
+let bucket_h = 40;
+let bucket_w = 8;
 
 function setup() 
 {
@@ -24,32 +31,50 @@ function setup()
     world = engine.world;
 
     createPegs ();
+    createBounds ();
+}
+
+function createBounds ()
+{
+    bounds.push ( new Boundary ( 0, height/2, b_width, height ) );
+    bounds.push ( new Boundary ( width, height/2, b_width, height ) );
+    bounds.push ( new Boundary ( width/2, height, width, b_width ) );
+
+    for ( let i = 0; i < bucket_count-1; i++ )
+    {
+        let spacing = width/bucket_count;
+
+        let x = (i+1)*spacing + bucket_w / 2;
+        let b = new Boundary ( x, height - bucket_h/2, bucket_w, bucket_h );
+
+        bounds.push ( b );
+    }
 }
 
 function createPegs ()
 {
-    let space_v = ( height * 0.75 )/rows;
+    let space_v = ( height * 0.85 )/rows;
 
-    for ( let i = 0; i < cols; i++ )
+    for ( let i = 0; i < rows; i++ )
     {
-        let yoff = height * 0.2;
-        let y = space_v * i;
+        let yoff = height * 0.1;
+        let y = yoff + space_v * i;
 
         //how many pegs on this row
-        let row_count = cols;
+        let peg_count = cols;
     
-        let space_h = width/cols;
+        let space_h = width/( cols + 2 );
 
-        let xoff = space_h / 2;
+        let xoff = space_h * 1.5;
 
         if ( i % 2 == 0 )
         {
-            xoff += xoff;
-            row_count -= 1;
+            xoff += space_h/2;
+            peg_count -= 1;
         }
 
 
-        for ( let j = 0; j < row_count; j++ )
+        for ( let j = 0; j < peg_count; j++ )
         {
 
             let x = xoff + space_h * j;
@@ -84,5 +109,21 @@ function draw()
 
     for ( const p of pegs )
         p.show ();
+
+    for ( const b of bounds )
+        b.show ();
+
+    balls = balls.filter ( ( b ) => 
+    {
+        if ( b.offscreen () )
+        {
+            World.remove ( world, b.body );
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    });
 
 }
