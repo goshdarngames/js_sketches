@@ -10,6 +10,7 @@ class Peg
         };
 
         this.body = Bodies.circle ( x, y, r, options );
+        this.body.label = "peg";
 
         this.r = r;
 
@@ -18,8 +19,8 @@ class Peg
 
     show ()
     {
-        fill ( 5 );
-        stroke ( 255 );
+        fill ( '#996615' );
+        stroke ( '#220500' );
         strokeWeight ( 2 );
 
         let p = this.body.position;

@@ -4,11 +4,11 @@ class Ball
     {
         let options =
         {
-            restitution : 1,
             friction    : 0,
         };
 
         this.body = Bodies.circle ( x, y, r, options );
+        this.body.label = "ball";
 
         this.r = r;
 

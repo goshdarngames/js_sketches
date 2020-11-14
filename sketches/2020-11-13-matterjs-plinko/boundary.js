@@ -17,8 +17,9 @@ class Boundary
 
     show ()
     {
-        fill ( 123, 123, 0 );
-        stroke ( 255 );
+        fill ( '#996615' );
+        stroke ( '#220500' );
+        strokeWeight ( 2 );
 
         let p = this.body.position;
 

@@ -7,21 +7,23 @@ let engine;
 
 let world;
 
-let ball_r = 8;
+let ball_r = 10;
 let balls = [];
 
-let peg_r = 12;
+let peg_r = 10;
 let pegs = [];
 
 let cols = 13;
 let rows = 11;
 
 let bounds = [];
-let b_width = 40;
+let b_width = 20;
 
 let bucket_count = 8;
 let bucket_h = 60;
 let bucket_w = 8;
+
+let sound_pegball;
 
 function setup() 
 {
@@ -29,6 +31,8 @@ function setup()
 
     engine = Engine.create ();
     world = engine.world;
+
+    Events.on ( engine, 'collisionStart', collision );
 
     createPegs ();
     createBounds ();
@@ -63,11 +67,11 @@ function createPegs ()
         //how many pegs on this row
         let peg_count = cols;
     
-        let space_h = width/( cols + 2 );
+        let space_h = width/( cols + 1 );
 
-        let xoff = space_h * 1.5;
+        let xoff = space_h;
 
-        if ( i % 2 == 0 )
+        if ( i % 2 == 1 )
         {
             xoff += space_h/2;
             peg_count -= 1;
@@ -105,12 +109,12 @@ function addBall ()
 
 function draw() 
 {
-    if ( frameCount % 10 == 1 )
+    if ( frameCount % 60 == 1 )
         addBall ();
 
     Engine.update ( engine );
 
-    background ( 30 );
+    background ( '#251545' );
 
     for ( const b of balls )
         b.show ();
