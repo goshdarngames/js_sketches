@@ -13,20 +13,16 @@ class Ball
         this.r = r;
 
         World.add ( world, this.body );
-    }
 
-    offscreen ()
-    {
-        let p = this.body.position;
-
-        return p.x < -50 || p.x > width + 50 ||
-               p.y < -50 || p.y > height + 50;
+        this.h = random ( 360 );
     }
 
     show ()
     {
-        fill ( 255 );
-        stroke ( 255 );
+        colorMode ( HSB );
+        fill ( this.h, 100, 100 );
+        colorMode ( RGB );
+        stroke ( 120 );
 
         let p = this.body.position;
 

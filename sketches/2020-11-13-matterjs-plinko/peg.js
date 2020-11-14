@@ -5,6 +5,8 @@ class Peg
         let options =
         {
             isStatic : true,
+            restitution : 1,
+            friction    : 0,
         };
 
         this.body = Bodies.circle ( x, y, r, options );
@@ -16,8 +18,9 @@ class Peg
 
     show ()
     {
-        fill ( '#0f0' );
-        stroke ( '#004400' );
+        fill ( 5 );
+        stroke ( 255 );
+        strokeWeight ( 2 );
 
         let p = this.body.position;
 

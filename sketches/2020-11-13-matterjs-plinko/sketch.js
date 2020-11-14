@@ -7,20 +7,20 @@ let engine;
 
 let world;
 
-let ball_r = 5;
+let ball_r = 8;
 let balls = [];
 
-let peg_r = 5;
+let peg_r = 12;
 let pegs = [];
 
-let cols = 17;
-let rows = 14;
+let cols = 13;
+let rows = 11;
 
 let bounds = [];
-let b_width = 10;
+let b_width = 40;
 
 let bucket_count = 8;
-let bucket_h = 40;
+let bucket_h = 60;
 let bucket_w = 8;
 
 function setup() 
@@ -53,7 +53,7 @@ function createBounds ()
 
 function createPegs ()
 {
-    let space_v = ( height * 0.85 )/rows;
+    let space_v = ( height * 0.80 )/rows;
 
     for ( let i = 0; i < rows; i++ )
     {
@@ -91,18 +91,26 @@ function createPegs ()
 
 function addBall ()
 {
-    let b = new Ball ( width/2, 0, ball_r );
+    let x = random ( 70, width-70 );
+    let b = new Ball ( x, 0, ball_r );
     balls.push ( b );
+
+    if ( balls.length > 100 )
+    {
+        let rm = balls.shift ();
+
+        World.remove ( world, rm.body );
+    }
 }
 
 function draw() 
 {
-    if ( frameCount % 60 == 1 )
+    if ( frameCount % 10 == 1 )
         addBall ();
 
     Engine.update ( engine );
 
-    background ( 123 );
+    background ( 30 );
 
     for ( const b of balls )
         b.show ();
@@ -112,18 +120,5 @@ function draw()
 
     for ( const b of bounds )
         b.show ();
-
-    balls = balls.filter ( ( b ) => 
-    {
-        if ( b.offscreen () )
-        {
-            World.remove ( world, b.body );
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    });
 
 }
