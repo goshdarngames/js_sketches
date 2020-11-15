@@ -34,7 +34,7 @@ function plinko_setup ()
  
 function plinko_draw ()
 {
-    if ( frameCount % 30 == 1 )
+    if ( frameCount % 15 == 1 )
         addBall ();
 
     Engine.update ( engine );
