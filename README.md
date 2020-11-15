@@ -12,3 +12,12 @@ The following commands can be executed to stop the container and remove it:
 
 `sudo docker stop p5js-apache && sudo docker rm p5js-apache`
 
+# Scripts
+
+`mk-index.py` 
+
+Used to generate the landing page with the sketch directory contents.
+
+`./mk-video.sh ccapture/frames/square_rotate.tar`
+
+Used to create a video file from ccapture png output.
