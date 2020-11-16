@@ -1,4 +1,9 @@
-let record = true;
+//main.js
+//
+// Main execution loop from p5js
+
+//set this var to true to start recording when sketch starts
+let record = false;
 
 let record_duration = 6;
 
