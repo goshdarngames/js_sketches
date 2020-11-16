@@ -14,6 +14,10 @@ The following commands can be executed to stop the container and remove it:
 
 # Scripts
 
+`mk-sketch.sh [name]`
+
+Creates a datestamped folder in sketches/ and copies template files.
+
 `mk-index.py` 
 
 Used to generate the landing page with the sketch directory contents.
@@ -21,3 +25,18 @@ Used to generate the landing page with the sketch directory contents.
 `./mk-video.sh ccapture/frames/square_rotate.tar`
 
 Used to create a video file from ccapture png output.
+
+# How to Make a Video from a Sketch
+
+First change main.js so that
+
+`let record = true;`
+
+Run the sketch as normal and the browser will record the frames.
+
+When the `record_duration` ( seconds ) has elapsed the browser
+will prompt you to download a .tar file.
+
+Save this .tar file and use the mk-video shell script to extract
+the png files and call ffmpeg.
+
