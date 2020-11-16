@@ -17,6 +17,8 @@ function setup()
 {
     createCanvas(640, 640);
 
+    windowResized ();
+
     sketch_setup ();
 }
 
@@ -26,6 +28,17 @@ function draw()
 
     if ( record )
         record_frame ();
+}
+
+function windowResized ()
+{
+    //dimension for square canvas
+    let s = Math.min ( windowWidth, windowHeight );
+
+    //canvas size always a multiple of 2
+    s -= s % 2;
+
+    resizeCanvas ( s, s );
 }
 
 function record_frame ()

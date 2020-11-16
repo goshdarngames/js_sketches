@@ -19,7 +19,7 @@ function sketch_draw ()
     translate ( width/2, height/2 );
     rotate ( a );
 
-    rect ( 0, 0, 20, 50 );
+    rect ( 0, 0, width/10, width/10 );
 
     pop ();
 }
