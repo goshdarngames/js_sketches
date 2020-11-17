@@ -19,10 +19,10 @@ function sketch_setup ()
 
 function shuffle_lights ()
 {
-    let presses = 0;
-
     do
     {
+        let presses = 0;
+
         while ( presses < random_presses )
         {
             let x = Math.floor ( random ( cols ) );
@@ -113,7 +113,7 @@ function draw_lights ()
     
 }
 
-function mousePressed ()
+function mouseClicked ()
 {
     if ( mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height )
         return;
