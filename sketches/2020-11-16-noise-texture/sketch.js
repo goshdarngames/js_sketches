@@ -15,7 +15,7 @@ function sketch_draw ()
     
     image ( double_buffer [ 0 ], 0, 0, width, height );
 
-    //noLoop ();
+    noLoop ();
 }
 
 function update_img ()
@@ -30,7 +30,7 @@ function update_img ()
         img.pixels [ i + 0 ] = r;
         img.pixels [ i + 1 ] = 0;
         img.pixels [ i + 2 ] = 0;
-        img.pixels [ i + 3 ] = 100;
+        img.pixels [ i + 3 ] = 255;
     }
 
     img.updatePixels ();
