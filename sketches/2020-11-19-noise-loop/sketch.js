@@ -1,12 +1,14 @@
-let vertex_count = 120;
+let vertex_count = 360 * 10;
 
-let nl;
+let nr, nz;
     
 let base_r;
 
 function sketch_setup ()
 {
-    nl = new NoiseLoop ( 5, -100, 100 );
+    nr = new NoiseLoop ( 5, -200, 200 );
+    ns = new NoiseLoop ( 10, -80,80 );
+    nz = new NoiseLoop ( 5,   0, 5 );
 }
 
 function sketch_draw ()
@@ -27,9 +29,10 @@ function sketch_draw ()
     {
         let a = TWO_PI / vertex_count * i;
 
-        let zoff = record_time ();
 
-        let r = base_r + nl.value ( a, zoff );
+        //let z = nz.value ( TWO_PI * record_time () )
+        let r = base_r + nr.value ( a )
+                       + ns.value ( a, record_time () );
 
         let x = r * cos ( a );
         let y = r * sin ( a );
