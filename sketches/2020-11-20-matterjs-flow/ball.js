@@ -5,6 +5,23 @@ class Ball
         let options =
         {
             friction    : 0,
+
+            plugin :
+            {
+                wrap :
+                {
+                    min :
+                    {
+                        x : 0,
+                        y : 0
+                    },
+                    max :
+                    {
+                        x : width,
+                        y : height
+                    }
+                }
+            }
         };
 
         this.body = Bodies.circle ( x, y, r, options );

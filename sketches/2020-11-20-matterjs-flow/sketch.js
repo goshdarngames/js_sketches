@@ -1,6 +1,7 @@
 // module aliases
 var Engine = Matter.Engine,
     World = Matter.World,
+    Body = Matter.Body,
     Bodies = Matter.Bodies;
 
 let engine;
@@ -42,12 +43,22 @@ function sketch_setup ()
     {
         let b = new Ball ( 200, 200, 10 );
         balls.push ( b );
+
+        let f = 
+        {
+            x : 0.01,
+            y : 0
+        };
+        Body.applyForce ( b.body, b.body.position, f );
     }
 }
 
 function sketch_draw ()
 {
     background ( 0 );
+
+    Matter.use('matter-wrap');
+    Engine.update ( engine );
 
     for ( const fz of flow_zones )
     {
