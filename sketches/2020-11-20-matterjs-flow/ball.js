@@ -4,7 +4,8 @@ class Ball
     {
         let options =
         {
-            friction    : 0,
+            friction    : 0.9,
+            density     : 200,
 
             plugin :
             {
@@ -32,6 +33,39 @@ class Ball
         World.add ( world, this.body );
 
         this.h = random ( 360 );
+
+        this.active_fz_set = new Set ();
+    }
+
+    collide_start ( other )
+    {
+        if ( other instanceof FlowZone )
+        {
+            this.active_fz_set.add ( other );
+        }
+    }
+
+    collide_end ( other )
+    {
+        if ( other instanceof FlowZone )
+        {
+            this.active_fz_set.delete ( other );
+        }
+    }
+
+    apply_flow ()
+    {
+        for ( const fz of this.active_fz_set )
+        {
+            let f = 
+            {
+                x : 0,
+                y : 3
+            };
+
+            f = Matter.Vector.rotate ( f, fz.a );
+            Body.applyForce ( this.body, this.body.position, f );
+        }
     }
 
     show ()

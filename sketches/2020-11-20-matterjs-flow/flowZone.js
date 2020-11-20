@@ -16,14 +16,23 @@ class FlowZone
         this.h = h;
 
         this.a = 0;
-        this.noise_step = 0.001;
+        this.noise_step = 0.002;
     }
+
+    collide_start ( other )
+    {
+    }
+
+    collide_end ( other )
+    {
+    }
+
 
     applyNoise ( zoff )
     {
         let p = this.body.position;
         let n = noise ( this.noise_step * p.x, this.noise_step * p.y, zoff );
-        this.a = map ( n, 0, 1, 0, TWO_PI );
+        this.a = map ( n, 0, 1, 0, 3* TWO_PI );
     }
 
     show ()
