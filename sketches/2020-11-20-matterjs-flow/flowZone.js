@@ -16,7 +16,7 @@ class FlowZone
         this.h = h;
 
         this.a = 0;
-        this.noise_step = 0.002;
+        this.noise_step = 0.001;
     }
 
     collide_start ( other )
@@ -32,18 +32,18 @@ class FlowZone
     {
         let p = this.body.position;
         let n = noise ( this.noise_step * p.x, this.noise_step * p.y, zoff );
-        this.a = map ( n, 0, 1, 0, 3* TWO_PI );
+        this.a = map ( n, 0, 1, 0,  4* TWO_PI );
     }
 
     show ()
     {
         fill ( '#996615' );
-        stroke ( '#220500' );
+        stroke ( 255 );
         strokeWeight ( 2 );
 
         let p = this.body.position;
 
-        rect ( p.x - this.w/2, p.y - this.h/2, this.w, this.h );
+        //rect ( p.x - this.w/2, p.y - this.h/2, this.w, this.h );
 
         let d = createVector ( 0, 1 );
 

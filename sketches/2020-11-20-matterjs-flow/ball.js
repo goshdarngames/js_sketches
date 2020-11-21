@@ -32,7 +32,8 @@ class Ball
 
         World.add ( world, this.body );
 
-        this.h = random ( 360 );
+        this.h = 229;//random ( 8360 );
+        this.sat = 255;//random ( 0, 60 );
 
         this.active_fz_set = new Set ();
     }
@@ -60,7 +61,7 @@ class Ball
             let f = 
             {
                 x : 0,
-                y : 3
+                y : 10
             };
 
             f = Matter.Vector.rotate ( f, fz.a );
@@ -71,9 +72,10 @@ class Ball
     show ()
     {
         colorMode ( HSB );
-        fill ( this.h, 100, 100 );
+        fill ( this.h, this.sat, 100 );
         colorMode ( RGB );
-        stroke ( 120 );
+
+        noStroke ();
 
         let p = this.body.position;
 

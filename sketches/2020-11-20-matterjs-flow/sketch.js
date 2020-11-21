@@ -17,7 +17,14 @@ let flow_zoff = 0;
 
 let balls = [];
 
+let ball_size = 12;
+
+let ball_count = 200;
+
 let physics_objects = new Map ();
+
+let bg_color = 37;
+
 
 function sketch_setup ()
 {
@@ -43,11 +50,11 @@ function sketch_setup ()
         }
     }
 
-    for ( let i = 0; i < 1000; i++ )
+    for ( let i = 0; i < ball_count; i++ )
     {
         let x = random ( width );
         let y = random ( height );
-        let b = new Ball ( x, y, 4 );
+        let b = new Ball ( x, y, ball_size );
         balls.push ( b );
 
         physics_objects.set ( b.body, b );
@@ -83,7 +90,7 @@ function handle_collision_end ( e )
 
 function sketch_draw ()
 {
-    background ( 0 );
+    background ( bg_color );
 
     Matter.use('matter-wrap');
     Engine.update ( engine );
@@ -100,6 +107,6 @@ function sketch_draw ()
         b.show ();
     }
 
-    flow_zoff += 0.004;
+    flow_zoff += 0.005;
 }
 
