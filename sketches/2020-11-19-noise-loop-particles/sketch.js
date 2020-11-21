@@ -3,7 +3,7 @@ let particles = [];
 
 function sketch_setup ()
 {
-    for ( let i = 0; i < 200; i++ )
+    for ( let i = 0; i < 100; i++ )
         particles.push ( new Particle () );
 }
 

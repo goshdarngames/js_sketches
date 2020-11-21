@@ -13,7 +13,7 @@ class Particle
 
         this.nl_h = new NoiseLoop ( 5, -90, 90 );
 
-        this.tail_len = 100;
+        this.tail_len = 30;
         this.tail_time = 0.15;
     }
 

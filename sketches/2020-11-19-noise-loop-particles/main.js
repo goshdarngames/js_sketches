@@ -3,7 +3,7 @@
 // Main execution loop from p5js
 
 //set this var to true to start recording when sketch starts
-let record = true;
+let record = false;
 
 //dynamically resize canvas as browser window changes
 let responsive = false;
